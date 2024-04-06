@@ -22,5 +22,19 @@ public static void grayScale(Bitmap bitmapSource, Bitmap bitmapResult)
         sepiaKernel.put(2, 0, 0.393f, 0.769f, 0.189f);
         Core.transform(sourceMat, resultMat, sepiaKernel);
         Utils.matToBitmap(resultMat,bitmapResult);    
-         }  
+         }
+        
+// Edit the Hue-Saturation-Values of a source Mat and save it to a new Mat      
+public static void changeHSV(Mat sourceMat, Mat resultMat,float HValue, float SValue, float VValue)
+        {
+        ArrayList<Mat> channelsHSV = new ArrayList<>();
+        Imgproc.cvtColor(sourceMat, resultMat, Imgproc.COLOR_BGR2HSV);
+        Core.split(resultMat,channelsHSV);
+        Core.multiply(channelsHSV.get(0),new Scalar(HValue),channelsHSV.get(0));
+        Core.multiply(channelsHSV.get(1),new Scalar(SValue),channelsHSV.get(1));
+        Core.multiply(channelsHSV.get(2),new Scalar(VValue),channelsHSV.get(2));
+        Core.merge(channelsHSV,resultMat);
+        Imgproc.cvtColor(resultMat, resultMat, Imgproc.COLOR_HSV2BGR);
+    }     
+        
 }
