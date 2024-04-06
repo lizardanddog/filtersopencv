@@ -35,6 +35,15 @@ public static void changeHSV(Mat sourceMat, Mat resultMat,float HValue, float SV
         Core.multiply(channelsHSV.get(2),new Scalar(VValue),channelsHSV.get(2));
         Core.merge(channelsHSV,resultMat);
         Imgproc.cvtColor(resultMat, resultMat, Imgproc.COLOR_HSV2BGR);
-    }     
+    }
         
+// Edit R-G-B values of a source Mat and save them to a new MAt
+   public static void changeColor(Mat sourceMat, Mat resultMat, float redValue, float blueValue, float greenValue){
+        ArrayList<Mat> channelsRGB = new ArrayList<>();
+        Core.split(sourceMat,channelsRGB);
+        Core.multiply(channelsRGB.get(0),new Scalar(redValue),channelsRGB.get(0));
+        Core.multiply(channelsRGB.get(1),new Scalar(greenValue),channelsRGB.get(1));
+        Core.multiply(channelsRGB.get(2),new Scalar(blueValue),channelsRGB.get(2));
+        Core.merge(channelsRGB,resultMat);
+    }
 }
